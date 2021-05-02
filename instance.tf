@@ -22,7 +22,7 @@ resource "azurerm_virtual_machine" "Devops_VM" {
 
   os_profile {
     computer_name  = var.computer_name
-    admin_username = var.admin_username
+    admin_username = "testadmin"
     admin_password = var.admin_password
 
   }

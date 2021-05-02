@@ -29,18 +29,16 @@ source $HOME/.bashrc
 sudo ln -s /home/${USER_ID}/.pyenv/bin/pyenv /usr/local/bin
 pyenv install 3.7.9
 pyenv versions
-read
+#read
 #exec "$SHELL"
 #pyenv global
 pyenv global 3.7.9
 #read
 
-#Install PIP & #PIP3
-#==================
-sudo apt-get install python-pip
+#Install PIP
+#===========
+sudo apt-get install -y python-pip
 pip --version
-#sudo apt install -y python3-pip
-#pip3 --version
 
 
 #Install Az Cli
@@ -93,7 +91,6 @@ docker-compose --version
 #TOOLS
 #======
 mkdir /home/${USER_ID}/_tools && cd /home/${USER_ID}/_tools
-sudo ln -s /usr/bin/pip3 /home/${USER_ID}/_tools/
 sudo ln -s /usr/bin/pip /home/${USER_ID}/_tools/
 sudo ln -s /usr/bin/python /home/${USER_ID}/_tools/
 sudo ln -s /usr/bin/python3.6 /home/${USER_ID}/_tools/
@@ -123,7 +120,6 @@ docker-compose --version
 
 # cd /home/${USER_ID}/myagent/_work/_tool/
 # sudo ln -s $HOME/.pyenv/bin/pyenv /home/${USER_ID}/myagent/_work/_tool/pyenv
-# sudo ln -s /usr/bin/pip3 /home/${USER_ID}/myagent/_work/_tool/pip3
 # sudo ln -s /usr/bin/pip /home/${USER_ID}/myagent/_work/_tool/pip
 # sudo ln -s /usr/bin/docker /home/${USER_ID}/myagent/_work/_tool/docker
 # sudo ln -s /usr/local/bin/docker-compose /home/${USER_ID}/myagent/_work/_tool/docker-compose
