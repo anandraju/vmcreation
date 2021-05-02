@@ -11,25 +11,25 @@ sudo apt update
 #====================================================
 sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
-#sudo git init
+sudo git init
 
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
 #read
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-#read
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-#read
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.bashrc
 source $HOME/.bashrc
+#read
 #exec "$SHELL"
 #source $HOME/.bashrc
 #Reinstalling on the same machine second time
 #rm -rvf ~/.pyenv/versions/3.7.9
 ####
 source $HOME/.bashrc
-sudo cp /home/${USER_ID}/.pyenv/bin/pyenv /usr/local/bin/
+sudo ln -s /home/${USER_ID}/.pyenv/bin/pyenv /usr/local/bin
 pyenv install 3.7.9
 pyenv versions
+read
 #exec "$SHELL"
 #pyenv global
 pyenv global 3.7.9
@@ -64,7 +64,7 @@ az --version
 
 #INSTALL AZURE-CORE
 #==================
-pip install azure-core
+pip install --upgrade --force-reinstall azure-core
 
 #INSTALL DOCKER
 #==============
@@ -110,6 +110,15 @@ cd /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64
 sudo ln -s /home/ubuntu/.pyenv/versions/3.7.9/bin/python3.7 /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64/python
 sudo ln -s /usr/bin/pip /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64/pip
 
+echo "#INSTALLED PACKAGES"
+echo "#=================="
+pyenv versions
+pip --version
+az --version
+docker --version
+docker-compose --version
+/home/testadmin/.pyenv/versions/3.7.9/bin/python3.7 --version
+
 #end#
 
 # cd /home/${USER_ID}/myagent/_work/_tool/
@@ -118,5 +127,4 @@ sudo ln -s /usr/bin/pip /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64/pi
 # sudo ln -s /usr/bin/pip /home/${USER_ID}/myagent/_work/_tool/pip
 # sudo ln -s /usr/bin/docker /home/${USER_ID}/myagent/_work/_tool/docker
 # sudo ln -s /usr/local/bin/docker-compose /home/${USER_ID}/myagent/_work/_tool/docker-compose
-
 
