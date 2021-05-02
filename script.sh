@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+USER_ID="testadmin"
 
 #UPDATE
 #=======
@@ -26,7 +27,7 @@ source $HOME/.bashrc
 #rm -rvf ~/.pyenv/versions/3.7.9
 ####
 source $HOME/.bashrc
-sudo cp /home/${USER}/.pyenv/bin/pyenv /usr/local/bin/
+sudo cp /home/${USER_ID}/.pyenv/bin/pyenv /usr/local/bin/
 pyenv install 3.7.9
 pyenv versions
 #exec "$SHELL"
@@ -67,17 +68,17 @@ pip install azure-core
 
 #INSTALL DOCKER
 #==============
-sudo apt-get purge docker lxc-docker docker-engine docker.io
-sudo apt-get install curl apt-transport-https ca-certificates software-properties-common
+sudo apt-get purge -y docker lxc-docker docker-engine docker.io
+sudo apt-get install -y curl apt-transport-https ca-certificates software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
-sudo apt-get install docker-ce
-read
+sudo apt-get install -y docker-ce
+#read
 sudo systemctl enable docker
 # Linux post-install
 sudo groupadd docker
-sudo usermod -aG docker ${USER}
+sudo usermod -aG docker ${USER_ID}
 docker info
 
 ###
@@ -91,31 +92,31 @@ docker-compose --version
 
 #TOOLS
 #======
-mkdir /home/${USER}/_tools && cd /home/${USER}/_tools
-sudo ln -s /usr/bin/pip3 /home/${USER}/_tools/
-sudo ln -s /usr/bin/pip /home/${USER}/_tools/
-sudo ln -s /usr/bin/python /home/${USER}/_tools/
-sudo ln -s /usr/bin/python3.6 /home/${USER}/_tools/
+mkdir /home/${USER_ID}/_tools && cd /home/${USER_ID}/_tools
+sudo ln -s /usr/bin/pip3 /home/${USER_ID}/_tools/
+sudo ln -s /usr/bin/pip /home/${USER_ID}/_tools/
+sudo ln -s /usr/bin/python /home/${USER_ID}/_tools/
+sudo ln -s /usr/bin/python3.6 /home/${USER_ID}/_tools/
 
 #CREATING DIRECTORIES
 #=======================================
-mkdir -p /home/${USER}/myagent/_work/ && cd /home/${USER}/myagent/_work/
-mkdir -p /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64 && cd /home/${USER}/myagent/_work/_tool/Python/3.7.9/
+mkdir -p /home/${USER_ID}/myagent/_work/ && cd /home/${USER_ID}/myagent/_work/
+mkdir -p /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64 && cd /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/
 touch x64.complete
 
 #CREATE SYMLINKS
 #================
-cd /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64
-sudo ln -s /home/ubuntu/.pyenv/versions/3.7.9/bin/python3.7 /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64/python
-sudo ln -s /usr/bin/pip /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64/pip
+cd /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64
+sudo ln -s /home/ubuntu/.pyenv/versions/3.7.9/bin/python3.7 /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64/python
+sudo ln -s /usr/bin/pip /home/${USER_ID}/myagent/_work/_tool/Python/3.7.9/x64/pip
 
 #end#
 
-# cd /home/${USER}/myagent/_work/_tool/
-# sudo ln -s $HOME/.pyenv/bin/pyenv /home/${USER}/myagent/_work/_tool/pyenv
-# sudo ln -s /usr/bin/pip3 /home/${USER}/myagent/_work/_tool/pip3
-# sudo ln -s /usr/bin/pip /home/${USER}/myagent/_work/_tool/pip
-# sudo ln -s /usr/bin/docker /home/${USER}/myagent/_work/_tool/docker
-# sudo ln -s /usr/local/bin/docker-compose /home/${USER}/myagent/_work/_tool/docker-compose
+# cd /home/${USER_ID}/myagent/_work/_tool/
+# sudo ln -s $HOME/.pyenv/bin/pyenv /home/${USER_ID}/myagent/_work/_tool/pyenv
+# sudo ln -s /usr/bin/pip3 /home/${USER_ID}/myagent/_work/_tool/pip3
+# sudo ln -s /usr/bin/pip /home/${USER_ID}/myagent/_work/_tool/pip
+# sudo ln -s /usr/bin/docker /home/${USER_ID}/myagent/_work/_tool/docker
+# sudo ln -s /usr/local/bin/docker-compose /home/${USER_ID}/myagent/_work/_tool/docker-compose
 
 
