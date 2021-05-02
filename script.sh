@@ -1,11 +1,13 @@
 #!/bin/bash
 set -x
-#Update and Install Dependencies
+
+#UPDATE
+#=======
 sudo apt update
 
 
-#install all of pyenv’s dependencies:
-#====================================
+#install all of pyenv’s OR other binary dependencies:
+#====================================================
 sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
 #sudo git init
@@ -24,17 +26,21 @@ source $HOME/.bashrc
 #rm -rvf ~/.pyenv/versions/3.7.9
 ####
 source $HOME/.bashrc
-
+sudo cp /home/${USER}/.pyenv/bin/pyenv /usr/local/bin/
 pyenv install 3.7.9
 pyenv versions
 #exec "$SHELL"
 #pyenv global
 pyenv global 3.7.9
 #read
-#Install PIP
-#===========
-sudo apt install -y python3-pip
-pip3 --version
+
+#Install PIP & #PIP3
+#==================
+sudo apt-get install python-pip
+pip --version
+#sudo apt install -y python3-pip
+#pip3 --version
+
 
 #Install Az Cli
 #==============
@@ -55,22 +61,25 @@ sudo apt install -y azure-cli
 az --version
 ###
 
+#INSTALL AZURE-CORE
+#==================
+pip install azure-core
+
 #INSTALL DOCKER
 #==============
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-get purge docker lxc-docker docker-engine docker.io
+sudo apt-get install curl apt-transport-https ca-certificates software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
-apt-cache policy docker-ce
-sudo apt-get install -y docker-ce
+sudo apt-get install docker-ce
+read
 sudo systemctl enable docker
 # Linux post-install
+sudo groupadd docker
 sudo usermod -aG docker ${USER}
 docker info
+
 ###
 
 #INSTALL DOCKER COMPOSE
@@ -80,24 +89,33 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ###
 
-mkdir ~/_tool && cd _tool
-pyenv local 3.7.9
-pyenv versions
+#TOOLS
+#======
+mkdir /home/${USER}/_tools && cd /home/${USER}/_tools
+sudo ln -s /usr/bin/pip3 /home/${USER}/_tools/
+sudo ln -s /usr/bin/pip /home/${USER}/_tools/
+sudo ln -s /usr/bin/python /home/${USER}/_tools/
+sudo ln -s /usr/bin/python3.6 /home/${USER}/_tools/
 
-#CREATING SYMLINKS UNDER _tool DIRECTORY
+#CREATING DIRECTORIES
 #=======================================
-mkdir -p ~/myagent/_work/_tool/Python/3.7.9/x64
-cd mkdir -p ~/myagent/_work/_tool/Python/3.7.9
+mkdir -p /home/${USER}/myagent/_work/ && cd /home/${USER}/myagent/_work/
+mkdir -p /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64 && cd /home/${USER}/myagent/_work/_tool/Python/3.7.9/
 touch x64.complete
-ls -rtl x64.complete
 
-cd ~/myagent/_work/_tool/Python/3.7.9/x64
-sudo ln -s $HOME/.pyenv/shims/pip3.7 pip3.7
-sudo ln -s /usr/lib/python3.7 python3.7
+#CREATE SYMLINKS
+#================
+cd /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64
+sudo ln -s /home/ubuntu/.pyenv/versions/3.7.9/bin/python3.7 /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64/python
+sudo ln -s /usr/bin/pip /home/${USER}/myagent/_work/_tool/Python/3.7.9/x64/pip
 
-cd ~/myagent/_work/_tool/
-sudo ln -s $HOME/.pyenv/bin/pyenv pyenv
-sudo ln -s $HOME/.pyenv/shims/pip3.7 pip3.7
-sudo ln -s /usr/bin/docker docker
-sudo ln -s /usr/local/bin/docker-compose docker-compose
+#end#
+
+# cd /home/${USER}/myagent/_work/_tool/
+# sudo ln -s $HOME/.pyenv/bin/pyenv /home/${USER}/myagent/_work/_tool/pyenv
+# sudo ln -s /usr/bin/pip3 /home/${USER}/myagent/_work/_tool/pip3
+# sudo ln -s /usr/bin/pip /home/${USER}/myagent/_work/_tool/pip
+# sudo ln -s /usr/bin/docker /home/${USER}/myagent/_work/_tool/docker
+# sudo ln -s /usr/local/bin/docker-compose /home/${USER}/myagent/_work/_tool/docker-compose
+
 
