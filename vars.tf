@@ -12,3 +12,16 @@ variable scfile{
     type = string
     default = "script.sh"
 }
+
+variable "computer_name" {
+  default = "hostname"
+}
+
+variable "admin_username" {
+  default = "testadmin"
+}
+
+variable "admin_password" {
+  default = "Password1234!"
+}
+
