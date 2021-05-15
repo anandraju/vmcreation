@@ -4,7 +4,7 @@ resource "azurerm_virtual_machine" "Devops_VM" {
   resource_group_name   = azurerm_resource_group.devops_rg.name
   network_interface_ids = [azurerm_network_interface.Devops_Interface.id]
   vm_size               = "Standard_F2"
-  
+
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
@@ -13,10 +13,10 @@ resource "azurerm_virtual_machine" "Devops_VM" {
   }
 
   storage_os_disk {
-    name          = "myosdisk1"
+    name = "myosdisk1"
     #vhd_uri       = "${azurerm_storage_account.maddydevops.primary_blob_endpoint}${azurerm_storage_container.Devops_Storage_Container.name}/myosdisk1.vhd"
-    caching       = "ReadWrite"
-    create_option = "FromImage"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
@@ -46,19 +46,19 @@ resource "azurerm_virtual_machine_extension" "Devops_VM_ext" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
-  protected_settings = <<PROT
+  protected_settings   = <<PROT
   {
     "script": "${base64encode(file(var.scfile))}"
   }
   PROT
 
-#   settings = <<SETTINGS
-#     {
-#       "fileUris": ["https://maddydevops.blob.core.windows.net/content/custom_script.sh"],
-#       "commandToExecute": "chmod +x custom_script.sh && sh custom_script.sh",
-#       "skipDos2Unix": true
-#     }
-# SETTINGS
+  #   settings = <<SETTINGS
+  #     {
+  #       "fileUris": ["https://maddydevops.blob.core.windows.net/content/custom_script.sh"],
+  #       "commandToExecute": "chmod +x custom_script.sh && sh custom_script.sh",
+  #       "skipDos2Unix": true
+  #     }
+  # SETTINGS
 
 }
 
@@ -76,8 +76,8 @@ resource "azurerm_network_interface" "Devops_Interface" {
 }
 
 resource "azurerm_public_ip" "demo-instance" {
-    name                         = "Devops_VM-public-ip"
-    location                     = var.location
-    resource_group_name          = azurerm_resource_group.devops_rg.name
-    allocation_method            = "Dynamic"
+  name                = "Devops_VM-public-ip"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.devops_rg.name
+  allocation_method   = "Dynamic"
 }

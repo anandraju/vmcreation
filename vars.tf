@@ -21,3 +21,14 @@ variable "admin_password" {
   default = "Password1234!"
 }
 
+variable "imagename" {
+  type    = string
+  default = "Devops_VM-image-randam-20210513091936"
+}
+
+variable "numberOfWorkerNodes" {
+  type = number
+  default = 1
+}
+
+
